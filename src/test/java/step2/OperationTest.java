@@ -3,16 +3,11 @@ package step2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class OperationTest {
-
-    @BeforeEach
-    void setUp() {
-    }
 
     @ParameterizedTest
     @CsvSource(value = {"1:2"}, delimiter = ':')
@@ -53,16 +48,22 @@ class OperationTest {
 
     @ParameterizedTest
     @ValueSource(strings = {" + "})
-    void invalidExpressionOperand(String expression) {
+    void invalidExpressionOperator(String expression) {
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> Operation.calculate(expression));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"1 ? 2 ", "2 2 2"})
-    void invalidExpressionOperator(String expression) {
+    void invalidExpressionOperand(String expression) {
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> Operation.calculate(expression));
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"1 ? 2"})
+    void invalidExpressionOperandParse(String expression) {
+        assertThatExceptionOfType(NumberFormatException.class)
+            .isThrownBy(() -> Operation.calculate(expression)); //TODO 예외가 안잡힘 ㅜㅜ
+    }
 }

@@ -2,7 +2,7 @@ package step2;
 
 public class Operation {
 
-    private Operation(){
+    private Operation() {
     }
 
     private static final String SEPARATOR = " ";
@@ -15,7 +15,7 @@ public class Operation {
         String operator;
         for (int i = 1; i < ops.length; i += 2) {
             operator = ops[i];
-            operand = getValue(operator, operand, convert(ops[i+1]));
+            operand = getValue(operator, operand, convert(ops[i + 1]));
 
         }
         return operand;

@@ -1,7 +1,6 @@
 package step2;
 
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
@@ -26,13 +25,13 @@ public enum StringOperator {
     }
 
     public static StringOperator of(String operator) {
-        Optional<StringOperator> so = Arrays.stream(StringOperator.values())
+        return Arrays.stream(StringOperator.values())
             .filter(stringOperator -> stringOperator.operator.equals(operator))
-            .findFirst();
-        return so.orElseThrow(() -> new IllegalArgumentException(
-            "Possible operators are [" + Arrays.stream(StringOperator.values())
-                .map(o -> o.operator)
-                .collect(Collectors.toList()) + "]"));
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException(
+                "Possible operators are [" + Arrays.stream(StringOperator.values())
+                    .map(o -> o.operator)
+                    .collect(Collectors.toList()) + "]"));
     }
 
     public int calculate(int a, int b) {
